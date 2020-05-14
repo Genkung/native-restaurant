@@ -20,7 +20,7 @@ namespace Restaurant
             var dirPath = Environment.SpecialFolder.LocalApplicationData;
             var defaultDirPath = Environment.GetFolderPath(dirPath);
             destinationFolder = Path.Combine(defaultDirPath, MCLocalStorageFolderName);
-            DownloadZip("https://manadevfrom.blob.core.windows.net/zips/html20201205085302.zip");
+            DownloadZip("https://manadevfrom.blob.core.windows.net/zips/restaurant01.zip");
 
             MainPage = new LoginPage();
         }

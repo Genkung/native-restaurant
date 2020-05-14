@@ -6,6 +6,23 @@
              mc:Ignorable="d"
              x:Class="Restaurant.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <Color x:Key="TitleBackgroundColor">#F7F7F8</Color>
+            <Color x:Key="SideMenuColor">#D4D3DB</Color>
+            <Color x:Key="DarkGrayColor">#3a3b44</Color>
+            <Color x:Key="GrayColor">#4d4f5a</Color>
+            <Color x:Key="LightGrayColor">#9191A3</Color>
+            <Color x:Key="GreenColor">#31aa04</Color>
+            <Color x:Key="OrangeColor">#fc7315</Color>
+            <Color x:Key="CreamColor">#3a3b44</Color>
+            <Style ApplyToDerivedTypes="true" TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource TitleBackgroundColor}"/>
+                <Setter Property="BarTextColor" Value="{StaticResource OrangeColor}"/>
+            </Style>
+            <OnPlatform x:Key="TitlePadding"
+                        x:TypeArguments="Thickness"
+                        Android="0"
+                        iOS="10,0,0,0" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -23,9 +23,7 @@ namespace Restaurant.Views
                 new SideMenuItem{ Title = "HomePage", Page = "master" },
                 new SideMenuItem{ Title = "A2", Page = "a2" }
             };
-
             ListViewMenu.ItemsSource = menuList;
-            ListViewMenu.SelectedItem = menuList[0];
             ListViewMenu.ItemSelected += (sender, e) =>
             {
                 if (e.SelectedItem == null) return;
@@ -33,6 +31,7 @@ namespace Restaurant.Views
                 var page = ((SideMenuItem)e.SelectedItem).Page;
                 PageService.GetRootPage().ChangePage(page);
                 ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                ListViewMenu.SelectedItem = null;
             };
         }
     }

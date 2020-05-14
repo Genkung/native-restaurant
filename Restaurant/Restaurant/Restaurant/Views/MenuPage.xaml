@@ -3,22 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:TheS.DevXP.XamForms.Controls;assembly=TheS.DevXP.MxPractices.Common"
              x:Class="Restaurant.Views.MenuPage"
              Title="Menu"
              BackgroundColor="White">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="White">
-            <ListView x:Name="ListViewMenu" HasUnevenRows="True" SeparatorVisibility="None" >
+        <Grid RowSpacing="20" BackgroundColor="{StaticResource SideMenuColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="105"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" Orientation="Horizontal" BackgroundColor="{StaticResource OrangeColor}" VerticalOptions="FillAndExpand" Padding="10,50,10,10">
+                <controls:CircleImage Source="https://lh3.googleusercontent.com/a-/AOh14GimGrUGVCSzeSo3yP0osuIV9yZZqf-Xb6rkMUdM=s96-c-rg-br100"/>
+                <Label FontSize="Medium" TextColor="White" Text="John Doe" Margin="10,10,0,0"/>
+            </StackLayout>
+            <ListView x:Name="ListViewMenu" Grid.Row="1" VerticalOptions="FillAndExpand" HasUnevenRows="True" SeparatorVisibility="None" BackgroundColor="{StaticResource SideMenuColor}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid Padding="10">
-                                <Label Text="{Binding Title}" FontSize="Medium"/>
+                                <Label Text="{Binding Title}" FontSize="Medium" FontAttributes="Bold"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
+            <Label  Grid.Row="2" Text="ออกจากระบบ" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Padding="10"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
