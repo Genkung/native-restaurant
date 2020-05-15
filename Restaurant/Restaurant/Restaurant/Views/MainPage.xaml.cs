@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,19 +14,13 @@ namespace Restaurant.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-        private const string MCLocalStorageFolderName = "mcontent/ionicapp4";
-        private readonly string destinationFolder;
         public MainPage()
         {
             InitializeComponent();
 
-            var dirPath = Environment.SpecialFolder.LocalApplicationData;
-            var defaultDirPath = Environment.GetFolderPath(dirPath);
-            destinationFolder = Path.Combine(defaultDirPath, MCLocalStorageFolderName);
-
             myWebview.Accessors = new TheS.DevXP.XamForms.XWebViewAccessorCollection(
-                LocalContentAccessor.GetAppData(MCLocalStorageFolderName));
-            var htmlSource = $"{GetMContentBaseUrl()}index.html#/master";
+                LocalContentAccessor.GetAppData(WebviewService.MCLocalStorageFolderName));
+            var htmlSource = WebviewService.GetHtmlPathByName("master");
 
             myWebview.NavigateOrRequesting += (s, e) =>
             {
@@ -45,18 +40,8 @@ namespace Restaurant.Views
 
         public void ChangePage(string page)
         {
-            var htmlSource = $"{GetMContentBaseUrl()}index.html#/{page}";
+            var htmlSource = WebviewService.GetHtmlPathByName(page);
             myWebview.Source = htmlSource;
-        }
-
-        public string GetMContentBaseUrl()
-        {
-            return string.Format("file://{0}/", destinationFolder);
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new WebViewPage("a"));
         }
     }
 }
