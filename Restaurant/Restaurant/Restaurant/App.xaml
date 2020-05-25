@@ -3,12 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
              x:Class="Restaurant.App">
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="TitleBackgroundColor">#F7F7F8</Color>
-            <Color x:Key="SideMenuColor">#D4D3DB</Color>
+            <Color x:Key="SideMenuColor">#4d4f5a</Color>
             <Color x:Key="DarkGrayColor">#3a3b44</Color>
             <Color x:Key="GrayColor">#4d4f5a</Color>
             <Color x:Key="LightGrayColor">#9191A3</Color>

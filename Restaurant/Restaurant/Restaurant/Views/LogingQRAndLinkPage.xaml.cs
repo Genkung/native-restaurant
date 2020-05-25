@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,20 +17,27 @@ namespace Restaurant.Views
         {
             InitializeComponent();
 
-            GotoMain.Clicked += (s, e) =>
+            GotoMain.Clicked += async (s, e) =>
             {
-                var homePage = new NavigationPage(new MainPage());
-                var masterDetailPage = new MasterDetailPage
-                {
-                    Detail = homePage,
-                    IsGestureEnabled = false
-                };
-
-                masterDetailPage.Master = new MenuPage();
-                masterDetailPage.Master.IconImageSource = "hammenu";
-
-                App.Current.MainPage = masterDetailPage;
+                await RestaurantService.SetRestaurantInfo("1");
+                NavigateToMasterDetail();
             };
+        }
+
+        private void NavigateToMasterDetail()
+        {
+            SidemenuService.SetUpSideMenu();
+
+            var homePage = new NavigationPage(new MainPage());
+            var masterDetailPage = new MasterDetailPage
+            {
+                Detail = homePage,
+                IsGestureEnabled = false
+            };
+
+            masterDetailPage.Master = new MenuPage();
+            masterDetailPage.Master.IconImageSource = "hammenu";
+            App.Current.MainPage = masterDetailPage;
         }
     }
 }

@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Restaurant.Models
 {
-    public class SideMenuItem
+    public class PublishNotificationModel
     {
-        public string Title { get; set; }
-        public string Page { get; set; }
+        public string NotiChannel { get; set; }
         public object Params { get; set; }
     }
 }

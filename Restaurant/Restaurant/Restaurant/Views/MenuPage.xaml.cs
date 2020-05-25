@@ -18,18 +18,21 @@ namespace Restaurant.Views
         {
             InitializeComponent();
 
-            var menuList = new List<SideMenuItem>
-            {
-                new SideMenuItem{ Title = "HomePage", Page = "master" },
-                new SideMenuItem{ Title = "A2", Page = "a2" }
-            };
+            var restaurantProfile = RestaurantService.GetRestaurantInfo();
+
+            restaurantProfileImage.Source = restaurantProfile.LogoImage;
+            restaurantProfileName.Text = restaurantProfile.Name;
+
+            var menuList = SidemenuService.GetSidemenuItem();
+
             ListViewMenu.ItemsSource = menuList;
             ListViewMenu.ItemSelected += (sender, e) =>
             {
                 if (e.SelectedItem == null) return;
 
                 var page = ((SideMenuItem)e.SelectedItem).Page;
-                PageService.GetRootPage().ChangePage(page);
+                var parameters = ((SideMenuItem)e.SelectedItem).Params;
+                PageService.GetRootPage().SideMenuChangePage(page, parameters);
                 ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                 ListViewMenu.SelectedItem = null;
             };
