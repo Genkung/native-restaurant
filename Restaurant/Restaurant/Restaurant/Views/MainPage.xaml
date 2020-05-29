@@ -4,8 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:TheS.DevXP.XamForms.Controls;assembly=TheS.DevXP.MxPractices.Common"
-             x:Class="Restaurant.Views.MainPage"
-             Title="Restaurant">
+             x:Class="Restaurant.Views.MainPage">
     <ContentPage.Content>
         <StackLayout>
             <controls:XWebView x:Name="myWebview" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>

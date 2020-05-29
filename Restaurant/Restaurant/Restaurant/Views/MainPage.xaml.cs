@@ -41,13 +41,14 @@ namespace Restaurant.Views
         private void RegisterWebviewBaseFunction()
         {
             myWebview.RegisterNativeFunction("NavigateToPage", NavigateToPage);
-            myWebview.RegisterNativeFunction("GetBikerId", GetBikerId);
+            myWebview.RegisterNativeFunction("GetRestaurantId", GetRestaurantId);
             myWebview.RegisterCallback("Goback", Goback);
             myWebview.RegisterCallback("PopToRoot", PopToRoot);
             myWebview.RegisterCallback("SetPageTitle", SetPageTitle);
             myWebview.RegisterCallback("ExecuteNotiIfExist", ExecuteNotiIfExist);
             myWebview.RegisterCallback("RemoveNotificationChannel", RemoveNotificationChannel);
             myWebview.RegisterCallback("UpdateSidemenuItem", UpdateSidemenuItem);
+            myWebview.RegisterCallback("PhoneCall", PhoneCall);
         }
 
         private async Task<object[]> NavigateToPage(string param)
@@ -60,7 +61,7 @@ namespace Restaurant.Views
             return new object[] { true };
         }
 
-        private async Task<object[]> GetBikerId(string param)
+        private async Task<object[]> GetRestaurantId(string param)
         {
             var restaurant = RestaurantService.GetRestaurantInfo();
             return new object[] { restaurant._id };
@@ -90,6 +91,11 @@ namespace Restaurant.Views
         private async void RemoveNotificationChannel(string notiChannel)
         {
             NotificationService.RemoveNotificationStack(notiChannel);
+        }
+
+        private async void PhoneCall(string phoneNumber)
+        {
+            PhoneService.Call(phoneNumber);
         }
 
         private async void UpdateSidemenuItem(string param)

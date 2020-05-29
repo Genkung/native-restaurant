@@ -6,7 +6,7 @@
              x:Class="Restaurant.Views.LogingQRAndLinkPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-            <Image Source="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png"/>
+            <Image Source="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png"  WidthRequest="250" HeightRequest="250"/>
             <Button x:Name="GotoMain" Text="GotoMain" BackgroundColor="Orange" TextColor="White" WidthRequest="200"/>
         </StackLayout>
     </ContentPage.Content>

@@ -1,7 +1,10 @@
-﻿using Restaurant.Models;
+﻿using Com.OneSignal;
+using Com.OneSignal.Abstractions;
+using Restaurant.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Restaurant.Services
@@ -22,6 +25,30 @@ namespace Restaurant.Services
                 };
                 MessagingCenter.Send(obj, MessagingChannel.SendNotification, sendNoti);
             }
+        }
+
+        public static async Task RegisterDevice()
+        {
+            var bikerId = RestaurantService.GetRestaurantInfo()._id;
+
+            var playerId = (await OneSignal.Current.IdsAvailableAsync()).PlayerId;
+            var platform = Xamarin.Essentials.DeviceInfo.Platform.ToString().ToLower();
+
+            var deviceInfo = new { InstallationId = playerId, Platform = platform };
+
+            await HttpClientService.Post($"https://delivery-3rd-api.azurewebsites.net/api/Restaurant/RegisterRestaurantDevice/{bikerId}", deviceInfo);
+        }
+
+        public static async Task UnRegisterDevice()
+        {
+            var bikerId = RestaurantService.GetRestaurantInfo()._id;
+
+            var playerId = (await OneSignal.Current.IdsAvailableAsync()).PlayerId;
+            var platform = Xamarin.Essentials.DeviceInfo.Platform.ToString().ToLower();
+
+            var deviceInfo = new { installationId = playerId, platform = platform };
+
+            await HttpClientService.Put($"https://delivery-3rd-api.azurewebsites.net/api/Restaurant/UnRegisterRestaurantDevice/{bikerId}", deviceInfo);
         }
 
         public static void SubscriptNotification(Action<NotificationService, PublishNotificationModel> callback)

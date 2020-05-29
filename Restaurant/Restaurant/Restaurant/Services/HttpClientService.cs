@@ -19,5 +19,21 @@ namespace Restaurant.Services
             var result = JsonConvert.DeserializeObject<T>(stringTask);
             return result;
         }
+
+        public static async Task Post(string url, object body)
+        {
+            var json = JsonConvert.SerializeObject(body);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            await client.PostAsync(url, data);
+        }
+
+        public static async Task Put(string url, object body)
+        {
+            var json = JsonConvert.SerializeObject(body);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            await client.PutAsync(url, data);
+        }
     }
 }

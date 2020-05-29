@@ -20,6 +20,7 @@ namespace Restaurant.Views
             GotoMain.Clicked += async (s, e) =>
             {
                 await RestaurantService.SetRestaurantInfo("1");
+                await NotificationService.RegisterDevice();
                 NavigateToMasterDetail();
             };
         }

@@ -37,5 +37,16 @@ namespace Restaurant.Views
                 ListViewMenu.SelectedItem = null;
             };
         }
+
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            await Logout();
+        }
+
+        private async Task Logout()
+        {
+            await NotificationService.UnRegisterDevice();
+            App.Current.MainPage = new LoginPage();
+        }
     }
 }
