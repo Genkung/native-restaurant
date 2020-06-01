@@ -113,7 +113,8 @@ namespace Restaurant.Views
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await myWebview?.EvaluateJavaScriptAsync($"onSendNotification('{obj.NotiChannel}',{obj.Params});");
+                    var msg = $"onSendNotification('{obj.NotiChannel}',{obj.Params});";
+                    await myWebview?.EvaluateJavaScriptAsync(msg);
                 });
             });
 

@@ -12,7 +12,7 @@ namespace Restaurant.Services
     public class NotificationService
     {
         public static NotificationService obj = new NotificationService();
-        public static Dictionary<string, object> NotificatiionStack = new Dictionary<string, object>();
+        public static Dictionary<string, string> NotificatiionStack = new Dictionary<string, string>();
 
         public static void PublishNotification(string notiChannel)
         {
@@ -61,7 +61,7 @@ namespace Restaurant.Services
             MessagingCenter.Unsubscribe<NotificationService, PublishNotificationModel>(obj, MessagingChannel.SendNotification);
         }
 
-        public static void AddNotificationStack(string notiChannel, object param)
+        public static void AddNotificationStack(string notiChannel, string param)
         {
             var aleadyAddNotification = !NotificatiionStack.TryAdd(notiChannel, param);
             if (aleadyAddNotification)
@@ -81,7 +81,7 @@ namespace Restaurant.Services
 
         public static void ExecuteNotificationIfExist(string notiChannel)
         {
-            object returnParam;
+            string returnParam;
             var notiIsExits = NotificatiionStack.TryGetValue(notiChannel, out returnParam);
             if (notiIsExits)
             {
