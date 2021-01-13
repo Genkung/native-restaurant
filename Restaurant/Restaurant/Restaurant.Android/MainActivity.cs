@@ -48,7 +48,7 @@ namespace Restaurant.Droid
             if (item.ItemId == 16908332)
             {
                 var page = PageService.GetCurrentPage() as WebViewPage;
-                page.GoBack();
+                page.XamarinGoBack();
                 return false;
             }
             else
@@ -61,7 +61,7 @@ namespace Restaurant.Droid
         {
             if (PageService.GetCurrentPage() is WebViewPage page)
             {
-                page.GoBack();
+                page.XamarinGoBack();
             }
             else
             {

@@ -14,49 +14,39 @@ using Xamarin.Forms.Xaml;
 namespace Restaurant.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class WebViewPage : ContentPage
+    public partial class WebViewPage : WebviewBase
     {
-        public WebViewPage(string pageName, object parameters)
+        public WebViewPage(string pageName, object parameter)
         {
             InitializeComponent();
+            AddXWebview(wWebview);
+            InitWebview(pageName, parameter);
+            RegisterWebviewBaseFunction(wWebview);
+        }
 
-            myWebview.Accessors = new TheS.DevXP.XamForms.XWebViewAccessorCollection(
+        private void InitWebview(string pageName, object parameter)
+        {
+            wWebview.Accessors = new TheS.DevXP.XamForms.XWebViewAccessorCollection(
                 LocalContentAccessor.GetAppData(WebviewService.MCLocalStorageFolderName));
 
             var htmlSource = WebviewService.GetHtmlPathByName(pageName);
-
-            RegisterWebviewBaseFunction();
-
-            myWebview.Source = $"{htmlSource}{WebviewService.ConvertObjectToUrlParameters(parameters)}";
+            wWebview.Source = $"{htmlSource}{WebviewService.ConvertObjectToUrlParameters(parameter)}";
         }
 
-        private void RegisterWebviewBaseFunction()
-        {
-            myWebview.RegisterNativeFunction("NavigateToPage", NavigateToPage);
-            myWebview.RegisterNativeFunction("GetRestaurantId", GetRestaurantId);
-            myWebview.RegisterCallback("Goback", Goback);
-            myWebview.RegisterCallback("PopToRoot", PopToRoot);
-            myWebview.RegisterCallback("SetPageTitle", SetPageTitle);
-            myWebview.RegisterCallback("ExecuteNotiIfExist", ExecuteNotiIfExist);
-            myWebview.RegisterCallback("RemoveNotificationChannel", RemoveNotificationChannel);
-            myWebview.RegisterCallback("PhoneCall", PhoneCall);
-            myWebview.RegisterCallback("UpdateSidemenuItem", UpdateSidemenuItem);
-        }
-
-        private async Task<object[]> NavigateToPage(string param)
+        public override async Task<object[]> NavigateToPage(string param)
         {
             return new object[] { false };
         }
 
-        private async void Goback(string param)
+        public override async void Goback(string param)
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                GoBack();
+                XamarinGoBack();
             });
         }
 
-        private async void PopToRoot(string param)
+        public override async void PopToRoot(string param)
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
@@ -64,70 +54,12 @@ namespace Restaurant.Views
             });
         }
 
-        private async Task<object[]> GetRestaurantId(string param)
+        public async void XamarinGoBack()
         {
-            var restaurant = RestaurantService.GetRestaurantInfo();
-            return new object[] { restaurant._id };
-        }
-
-        private async void SetPageTitle(string title)
-        {
-            Device.BeginInvokeOnMainThread(() =>
+            wWebview.RefreshCanGoBackForward();
+            if (wWebview.CanGoBack)
             {
-                Title = title;
-            });
-        }
-
-        private async void ExecuteNotiIfExist(string notiChannel)
-        {
-            NotificationService.ExecuteNotificationIfExist(notiChannel);
-        }
-
-        private async void RemoveNotificationChannel(string notiChannel)
-        {
-            NotificationService.RemoveNotificationStack(notiChannel);
-        }
-
-        private async void PhoneCall(string phoneNumber)
-        {
-            PhoneService.Call(phoneNumber);
-        }
-
-        private async void UpdateSidemenuItem(string param)
-        {
-            var sidemenu = JsonConvert.DeserializeObject<SideMenuItem>(param);
-            SidemenuService.UpdateSidemenuPage(sidemenu.Title, sidemenu.Page, sidemenu.Params);
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            myWebview.Focus();
-
-            NotificationService.SubscriptNotification((sender, obj) =>
-            {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    var msg = $"onSendNotification('{obj.NotiChannel}',{obj.Params});";
-                    await myWebview?.EvaluateJavaScriptAsync(msg);
-                });
-            });
-
-            myWebview.EvaluateJavaScriptAsync("refreshOnGoBack();");
-        }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            NotificationService.UnSubscriptNotification();
-        }
-
-        public async void GoBack()
-        {
-            myWebview.RefreshCanGoBackForward();
-            if (myWebview.CanGoBack)
-            {
-                myWebview.GoBack();
+                wWebview.GoBack();
             }
             else
             {
