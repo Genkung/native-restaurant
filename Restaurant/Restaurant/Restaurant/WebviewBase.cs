@@ -34,6 +34,7 @@ namespace Restaurant
             xWebview.RegisterCallback("RemoveNotificationChannel", RemoveNotificationChannel);
             xWebview.RegisterCallback("UpdateSidemenuItem", UpdateSidemenuItem);
             xWebview.RegisterCallback("PhoneCall", PhoneCall);
+            xWebview.RegisterCallback("PlayNotiAudio", PlayNotiAudio);
         }
 
         public abstract Task<object[]> NavigateToPage(string param);
@@ -77,6 +78,11 @@ namespace Restaurant
                 PhoneService.Call(phome?.PhoneNumber);
             }
             else { await App.Current.MainPage.DisplayAlert("แจ้งเตือน", "ขออภัย เกิดข้อผิดพลาด", "ปิด"); }
+        }
+
+        public async void PlayNotiAudio(string param) 
+        {
+            AudioService.PlayNotificationSound();
         }
 
         private async void UpdateSidemenuItem(string param)

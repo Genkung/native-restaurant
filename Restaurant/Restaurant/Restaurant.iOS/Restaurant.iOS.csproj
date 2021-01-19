@@ -14,7 +14,7 @@
     <AssemblyName>Restaurant.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
-    <ProvisioningType>automatic</ProvisioningType>
+    <ProvisioningType>manual</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,6 +63,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Audio.cs" />
     <Compile Include="ContentPageRenderer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
@@ -125,7 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Com.OneSignal">
-      <Version>3.8.2</Version>
+      <Version>3.10.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CSharp">
       <Version>4.7.0</Version>
@@ -169,5 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\iosbackarrow%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\orderiscoming.mp3" />
   </ItemGroup>
 </Project>
